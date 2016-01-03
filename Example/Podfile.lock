@@ -1,0 +1,14 @@
+PODS:
+  - InfiniteCollectionView (1.0.0)
+
+DEPENDENCIES:
+  - InfiniteCollectionView (from `..`)
+
+EXTERNAL SOURCES:
+  InfiniteCollectionView:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  InfiniteCollectionView: f1adbd99a90a953ddf504aa75a92e868467f07e2
+
+COCOAPODS: 0.39.0
