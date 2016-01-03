@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "InfiniteCollectionView"
   s.version      = "1.0.0"
-  s.summary      = "Component which presents a dismissible view from the bottom of the screen."
+  s.summary      = "Infinite Scrolling Using UICollectionView."
   s.homepage     = "https://github.com/hryk224/InfiniteCollectionView"
   s.screenshots  = "https://github.com/hryk224/InfiniteCollectionView/wiki/images/sample1.gif"
   s.license      = { :type => "MIT", :file => "LICENSE" }
