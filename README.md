@@ -1,8 +1,9 @@
 # InfiniteCollectionView
 
-Component which presents a dismissible view from the bottom of the screen
+Infinite Scrolling Using `UICollectionView`
 
 <img src="https://github.com/hryk224/InfiniteCollectionView/wiki/images/sample1.gif" width="320" >
+<img src="https://github.com/hryk224/InfiniteCollectionView/wiki/images/sample2.gif" width="320" >
 
 ## Requirements
 - iOS 8.0+
@@ -28,39 +29,34 @@ import InfiniteCollectionView
 
 ## Usage
 
+#### initialize
+
 ```Swift
-let controller = InfiniteCollectionView.Controller()
-
-// Adds Toolbar
-controller.addToolbar({ toolbar in
-    // toolbar
-})
-
-// Adds View
-let view = UIView
-controller.addContentsView(view)
-
-// Adds NavigationBar
-controller.addNavigationbar(configurationHandler: { navigationBar in
-    // navigationBar
-})
-
-// Adds CollectionView
-controller.addCollectionView(configurationHandler: { [weak self] collectionView in
-    // collectionView
-})
-
-// Adds TableView
-controller.addTableView(configurationHandler: { [weak self] tableView in
-    // tableView
-})
-
-// customize
-controller.overlayBackgroundColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.3)
-controller.viewActionType = .TappedDismiss
-controller.initializeHeight = 200
+@IBOutlet weak var collectionView: InfiniteCollectionView!
 ```
 
-##License
+#### delegate, dataSource
+
+```Swift
+collectionView.infiniteDataSource = self
+collectionView.infiniteDelegate = self
+collectionView.cellWidth = XXX
+```
+
+```Swift
+// protocol
+func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell
+func numberOfItems(collectionView: UICollectionView) -> Int
+
+// optional
+func didSelectCellAtIndexPath(collectionView: UICollectionView, indexPath: NSIndexPath)
+func didUpdatePageIndex(index: Int)
+```
+
+## Photos from
+
+* by [pakutaso.com](https://www.pakutaso.com/)
+
+## License
 
 This project is made available under the MIT license. See LICENSE file for details.
