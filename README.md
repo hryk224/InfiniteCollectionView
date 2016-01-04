@@ -1,6 +1,6 @@
 # InfiniteCollectionView
 
-Infinite Scrolling Using `UICollectionView`
+Infinite horizontal scrolling Using `UICollectionView`
 
 [![Cocoapods Compatible](http://img.shields.io/cocoapods/v/InfiniteCollectionView.svg?style=flat)](http://cocoadocs.org/docsets/InfiniteCollectionView)
 [![Swift 2.0](https://img.shields.io/badge/Swift-2.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
