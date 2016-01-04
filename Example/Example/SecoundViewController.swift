@@ -84,7 +84,7 @@ final class SecoundInfiniteTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var pageControl: UIPageControl! {
         didSet {
-            pageControl.numberOfPages = 10
+            pageControl.numberOfPages = 4
         }
     }
 }
@@ -92,7 +92,7 @@ final class SecoundInfiniteTableViewCell: UITableViewCell {
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
 extension SecoundInfiniteTableViewCell: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
     func numberOfItems(collectionView: UICollectionView) -> Int {
-        return 10
+        return 4
     }
     func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(IntroCollectionViewCell.identifier, forIndexPath: dequeueIndexPath) as! IntroCollectionViewCell
