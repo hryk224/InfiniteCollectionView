@@ -33,13 +33,17 @@ extension SecoundViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
-        } else {
-            return 50
+        } else if section == 1 {
+            return 1
         }
+        return 0
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier(SecoundInfiniteTableViewCell.identifier) as! SecoundInfiniteTableViewCell
+            return cell
+        } else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCellWithIdentifier(SecoundInfinite2TableViewCell.identifier) as! SecoundInfinite2TableViewCell
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(SecoundTableViewCell.identifier)
@@ -49,10 +53,11 @@ extension SecoundViewController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 160
-        } else {
-            return 50
+            return 240
+        } else if indexPath.section == 1 {
+            return 120
         }
+        return 0
     }
 }
 
@@ -62,7 +67,6 @@ final class SecoundTableViewCell: UITableViewCell {
 
 final class SecoundInfiniteTableViewCell: UITableViewCell {
     static let identifier = "SecoundInfiniteTableViewCell"
-    var items = ["1", "2", "3", "4"]
     @IBOutlet weak var collectionView: InfiniteCollectionView! {
         didSet {
             collectionView.infiniteDataSource = self
@@ -75,12 +79,12 @@ final class SecoundInfiniteTableViewCell: UITableViewCell {
     @IBOutlet weak var layout: UICollectionViewFlowLayout! {
         didSet {
             layout.scrollDirection = .Horizontal
-            layout.itemSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: 159)
+            layout.itemSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: 239)
         }
     }
     @IBOutlet weak var pageControl: UIPageControl! {
         didSet {
-            pageControl.numberOfPages = items.count
+            pageControl.numberOfPages = 10
         }
     }
 }
@@ -88,7 +92,7 @@ final class SecoundInfiniteTableViewCell: UITableViewCell {
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
 extension SecoundInfiniteTableViewCell: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
     func numberOfItems(collectionView: UICollectionView) -> Int {
-        return items.count
+        return 10
     }
     func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(IntroCollectionViewCell.identifier, forIndexPath: dequeueIndexPath) as! IntroCollectionViewCell
@@ -102,6 +106,37 @@ extension SecoundInfiniteTableViewCell: InfiniteCollectionViewDataSource, Infini
     }
 }
 
+final class SecoundInfinite2TableViewCell: UITableViewCell {
+    static let identifier = "SecoundInfinite2TableViewCell"
+    @IBOutlet weak var collectionView: InfiniteCollectionView! {
+        didSet {
+            collectionView.infiniteDataSource = self
+            collectionView.infiniteDelegate = self
+            collectionView.cellWidth = 100
+            collectionView.registerNib(IntroCollectionViewCell.nib, forCellWithReuseIdentifier: IntroCollectionViewCell.identifier)
+        }
+    }
+    @IBOutlet weak var layout: UICollectionViewFlowLayout! {
+        didSet {
+            layout.scrollDirection = .Horizontal
+            layout.minimumInteritemSpacing = 0
+            layout.minimumLineSpacing = 10
+            layout.itemSize = CGSize(width: 100, height: 100)
+        }
+    }
+}
+
+// MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
+extension SecoundInfinite2TableViewCell: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
+    func numberOfItems(collectionView: UICollectionView) -> Int {
+        return 10
+    }
+    func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(IntroCollectionViewCell.identifier, forIndexPath: dequeueIndexPath) as! IntroCollectionViewCell
+        cell.configure(dequeueIndexPath: indexPath)
+        return cell
+    }
+}
 
 
 

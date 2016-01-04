@@ -98,10 +98,50 @@
                                             <outlet property="pageControl" destination="TnJ-eK-8qD" id="APk-sp-T8S"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SecoundTableViewCell" rowHeight="44" id="Pbe-Q2-B3O" customClass="SecoundTableViewCell" customModule="Example" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="189" width="600" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SecoundInfinite2TableViewCell" rowHeight="100" id="Pbe-Q2-B3O" customClass="SecoundInfinite2TableViewCell" customModule="Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="189" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pbe-Q2-B3O" id="Vro-Kf-tWq">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ba3-za-Kdk" customClass="InfiniteCollectionView" customModule="InfiniteCollectionView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9h8-PU-jeW">
+                                                        <size key="itemSize" width="600" height="99"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="IntroCollectionViewCell" id="HBK-Vd-0rJ" customClass="IntroCollectionViewCell" customModule="Example" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                        </collectionViewCell>
+                                                    </cells>
+                                                </collectionView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="ba3-za-Kdk" secondAttribute="bottom" id="40f-BR-dI0"/>
+                                                <constraint firstItem="ba3-za-Kdk" firstAttribute="top" secondItem="Vro-Kf-tWq" secondAttribute="top" id="BVM-Cc-Dkj"/>
+                                                <constraint firstAttribute="trailing" secondItem="ba3-za-Kdk" secondAttribute="trailing" id="Kkr-D5-1TC"/>
+                                                <constraint firstItem="ba3-za-Kdk" firstAttribute="leading" secondItem="Vro-Kf-tWq" secondAttribute="leading" id="fO3-pr-FzH"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="collectionView" destination="ba3-za-Kdk" id="kOQ-H0-6oO"/>
+                                            <outlet property="layout" destination="9h8-PU-jeW" id="FMS-Ao-3Ra"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SecoundTableViewCell" rowHeight="44" id="MB1-L7-gRN" customClass="SecoundTableViewCell" customModule="Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="289" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MB1-L7-gRN" id="6hj-FW-qLp">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
