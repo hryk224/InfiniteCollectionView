@@ -41,8 +41,8 @@ import InfiniteCollectionView
 #### delegate, dataSource
 
 ```Swift
-collectionView.infiniteDataSource = self
-collectionView.infiniteDelegate = self
+collectionView.infiniteDataSource = XXX
+collectionView.infiniteDelegate = XXX
 collectionView.cellWidth = XXX
 ```
 
