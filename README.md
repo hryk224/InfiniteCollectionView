@@ -2,6 +2,9 @@
 
 Infinite Scrolling Using `UICollectionView`
 
+[![Cocoapods Compatible](http://img.shields.io/cocoapods/v/PCLBlurEffectAlert.svg?style=flat)](http://cocoadocs.org/docsets/PCLBlurEffectAlert)
+[![Swift 2.0](https://img.shields.io/badge/Swift-2.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
+
 <img src="https://github.com/hryk224/InfiniteCollectionView/wiki/images/sample1.gif" width="320" >
 <img src="https://github.com/hryk224/InfiniteCollectionView/wiki/images/sample2.gif" width="320" >
 
