@@ -1,8 +1,8 @@
 //
-//  Bottomsheet.swift
+//  InfiniteCollectionView.swift
 //  Pods
 //
-//  Created by hiroyuki yoshida on 2015/10/17.
+//  Created by hryk224 on 2015/10/17.
 //
 //
 
