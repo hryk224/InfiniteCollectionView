@@ -45,7 +45,6 @@ private extension InfiniteCollectionView {
         showsVerticalScrollIndicator = false
         clipsToBounds = true
         scrollEnabled = true
-        pagingEnabled = true
         delegate = self
         dataSource = self
         registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: Me.defaultIdentifier)
