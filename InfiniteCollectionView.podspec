@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "InfiniteCollectionView"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "Infinite Scrolling Using UICollectionView."
   s.homepage     = "https://github.com/hryk224/InfiniteCollectionView"
   s.screenshots  = "https://github.com/hryk224/InfiniteCollectionView/wiki/images/sample1.gif"
