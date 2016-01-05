@@ -21,10 +21,10 @@
             </objects>
             <point key="canvasLocation" x="-460" y="511"/>
         </scene>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="1Kl-4d-wQ0">
             <objects>
-                <viewController id="9lV-Re-kOd" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9lV-Re-kOd" customClass="MainViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2b4-Bh-NFz"/>
                         <viewControllerLayoutGuide type="bottom" id="WMJ-rH-CQa"/>

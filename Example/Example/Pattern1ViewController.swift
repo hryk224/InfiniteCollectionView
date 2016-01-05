@@ -1,5 +1,5 @@
 //
-//  IntroViewController.swift
+//  Pattern1ViewController.swift
 //  Example
 //
 //  Created by hiroyuki yoshida on 2016/01/04.
@@ -9,20 +9,18 @@
 import UIKit
 import InfiniteCollectionView
 
-final class IntroViewController: UIViewController {
+final class Pattern1ViewController: UIViewController {
     var items = ["1", "2", "3", "4"]
     @IBOutlet weak var collectionView: InfiniteCollectionView! {
         didSet {
             collectionView.infiniteDataSource = self
             collectionView.infiniteDelegate = self
             collectionView.cellWidth = UIScreen.mainScreen().bounds.width
-            collectionView.registerNib(IntroCollectionViewCell.nib, forCellWithReuseIdentifier: IntroCollectionViewCell.identifier)
-            collectionView.pagingEnabled = true
+            collectionView.registerNib(ImageCollectionViewCell.nib, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
         }
     }
     @IBOutlet weak var layout: UICollectionViewFlowLayout! {
         didSet {
-            layout.scrollDirection = .Horizontal
             layout.itemSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height)
         }
     }
@@ -31,19 +29,19 @@ final class IntroViewController: UIViewController {
             pageControl.numberOfPages = items.count
         }
     }
-    static func createFromStoryboard() -> IntroViewController {
-        let storyboard = UIStoryboard(name: "Intro", bundle: nil)
-        return storyboard.instantiateInitialViewController() as! IntroViewController
+    static func createFromStoryboard() -> Pattern1ViewController {
+        let storyboard = UIStoryboard(name: "Pattern1", bundle: nil)
+        return storyboard.instantiateInitialViewController() as! Pattern1ViewController
     }
 }
 
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
-extension IntroViewController: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
+extension Pattern1ViewController: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
     func numberOfItems(collectionView: UICollectionView) -> Int {
         return items.count
     }
     func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(IntroCollectionViewCell.identifier, forIndexPath: dequeueIndexPath) as! IntroCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCollectionViewCell.identifier, forIndexPath: dequeueIndexPath) as! ImageCollectionViewCell
         cell.configure(dequeueIndexPath: indexPath)
         return cell
     }
