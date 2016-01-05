@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  Example
 //
 //  Created by hiroyuki yoshida on 2015/10/17.
@@ -9,7 +9,7 @@
 import UIKit
 import InfiniteCollectionView
 
-final class ViewController: UIViewController {
+final class MainViewController: UIViewController {
     var patterns = ["pattern1", "pattern2"]
     let identifier = "tableViewCell"
     @IBOutlet weak var tableView: UITableView! {
@@ -29,7 +29,7 @@ final class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return patterns.count
     }
@@ -40,10 +40,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 {
-            let controller = IntroViewController.createFromStoryboard()
+            let controller = Pattern1ViewController.createFromStoryboard()
             navigationController?.pushViewController(controller, animated: true)
         } else if indexPath.row == 1 {
-            let controller = SecoundViewController.createFromStoryboard()
+            let controller = Pattern2ViewController.createFromStoryboard()
             navigationController?.pushViewController(controller, animated: true)
         }
     }

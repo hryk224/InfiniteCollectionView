@@ -40,11 +40,6 @@ public class InfiniteCollectionView: UICollectionView {
 // MARK: - private
 private extension InfiniteCollectionView {
     func configure() {
-        backgroundColor = UIColor.clearColor()
-        showsHorizontalScrollIndicator = false
-        showsVerticalScrollIndicator = false
-        clipsToBounds = true
-        scrollEnabled = true
         delegate = self
         dataSource = self
         registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: Me.defaultIdentifier)
