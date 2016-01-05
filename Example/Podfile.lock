@@ -1,5 +1,5 @@
 PODS:
-  - InfiniteCollectionView (1.0.0)
+  - InfiniteCollectionView (1.0.2)
 
 DEPENDENCIES:
   - InfiniteCollectionView (from `..`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  InfiniteCollectionView: f1adbd99a90a953ddf504aa75a92e868467f07e2
+  InfiniteCollectionView: 98f7a81ea0b519e7f33a64306b7c148c996cb023
 
 COCOAPODS: 0.39.0

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'D09EB6C673F2B45CF7AD4994'
+               BlueprintIdentifier = 'DF940934065E988D66E7D5F0'
                BlueprintName = 'InfiniteCollectionView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'InfiniteCollectionView.framework'>
