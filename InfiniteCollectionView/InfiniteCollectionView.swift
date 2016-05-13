@@ -72,7 +72,7 @@ private extension InfiniteCollectionView {
         }
         let centerPoint = CGPoint(x: scrollView.frame.size.width / 2 + scrollView.contentOffset.x, y: scrollView.frame.size.height / 2 + scrollView.contentOffset.y)
         guard let indexPath = indexPathForItemAtPoint(centerPoint) else { return }
-        infiniteDelegate?.didUpdatePageIndex?(correctedIndex(indexPath.row - indexOffset))
+        infiniteDelegate?.didUpdatePageIndex?(correctedIndex(indexPath.item - indexOffset))
     }
     func shiftContentArray(offset: Int) {
         indexOffset += offset
@@ -105,7 +105,7 @@ extension InfiniteCollectionView: UICollectionViewDataSource {
     }
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var maybeCell: UICollectionViewCell!
-        maybeCell = infiniteDataSource?.cellForItemAtIndexPath(self, dequeueIndexPath: indexPath, indexPath: NSIndexPath(forRow: correctedIndex(indexPath.row - indexOffset), inSection: 0))
+        maybeCell = infiniteDataSource?.cellForItemAtIndexPath(self, dequeueIndexPath: indexPath, indexPath: NSIndexPath(forRow: correctedIndex(indexPath.item - indexOffset), inSection: 0))
         if maybeCell == nil {
             maybeCell = collectionView.dequeueReusableCellWithReuseIdentifier(Me.defaultIdentifier, forIndexPath: indexPath)
         }
@@ -116,7 +116,7 @@ extension InfiniteCollectionView: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension InfiniteCollectionView: UICollectionViewDelegate {
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        infiniteDelegate?.didSelectCellAtIndexPath?(self, indexPath: NSIndexPath(forRow: correctedIndex(indexPath.row - indexOffset), inSection: 0))
+        infiniteDelegate?.didSelectCellAtIndexPath?(self, indexPath: NSIndexPath(forRow: correctedIndex(indexPath.item - indexOffset), inSection: 0))
     }
     public func scrollViewDidScroll(scrollView: UIScrollView) {
         centerIfNeeded(scrollView)

@@ -13,7 +13,7 @@ final class ImageCollectionViewCell: UICollectionViewCell {
     static let identifier = "ImageCollectionViewCell"
     static let nib = UINib(nibName: "ImageCollectionViewCell", bundle: nil)
     func configure(dequeueIndexPath dequeueIndexPath: NSIndexPath) {
-        let image = UIImage(named: String(dequeueIndexPath.row))
+        let image = UIImage(named: String(dequeueIndexPath.item))
         imageView.image = image
         setNeedsLayout()
         layoutIfNeeded()
