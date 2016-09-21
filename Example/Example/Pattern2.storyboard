@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OWH-Uo-QHx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="OWH-Uo-QHx">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Pattern2 View Controller-->
@@ -14,23 +15,21 @@
                         <viewControllerLayoutGuide type="bottom" id="aif-qL-b6r"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hwa-cs-SAI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="blK-sK-Rl8">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InfiniteTableViewCell" rowHeight="161" id="1U1-fg-z8H" customClass="InfiniteTableViewCell" customModule="Example" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="161"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="161"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1U1-fg-z8H" id="FjB-bh-baH">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="160"/>
+                                            <frame key="frameInset" width="375" height="161"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="g4o-O8-u5y" customClass="InfiniteCollectionView" customModule="InfiniteCollectionView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="160"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="JvE-3O-3Xs">
                                                         <size key="itemSize" width="50" height="50"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -39,17 +38,14 @@
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionViewCell" id="PWv-9R-TGh" customClass="ImageCollectionViewCell" customModule="Example" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="160"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="160"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m9D-ne-YCP">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="160"/>
-                                                                    </imageView>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m9D-ne-YCP"/>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="m9D-ne-YCP" secondAttribute="trailing" id="CWx-cc-UNX"/>
@@ -57,7 +53,7 @@
                                                                 <constraint firstItem="m9D-ne-YCP" firstAttribute="leading" secondItem="PWv-9R-TGh" secondAttribute="leading" id="kKT-hw-BrG"/>
                                                                 <constraint firstAttribute="bottom" secondItem="m9D-ne-YCP" secondAttribute="bottom" id="lvQ-hr-UgB"/>
                                                             </constraints>
-                                                            <size key="customSize" width="600" height="160"/>
+                                                            <size key="customSize" width="375" height="160"/>
                                                             <connections>
                                                                 <outlet property="imageView" destination="m9D-ne-YCP" id="c9f-Gz-ruC"/>
                                                             </connections>
@@ -65,19 +61,17 @@
                                                     </cells>
                                                 </collectionView>
                                                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWs-n0-Daa">
-                                                    <rect key="frame" x="0.0" y="103" width="600" height="37"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="37" id="Jfa-Ja-OcD"/>
                                                     </constraints>
                                                 </view>
                                                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="TnJ-eK-8qD">
-                                                    <rect key="frame" x="0.0" y="103" width="600" height="37"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="37" id="iLI-sf-nVD"/>
                                                     </constraints>
-                                                    <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="currentPageIndicatorTintColor" red="0.75686274509999996" green="0.1960784314" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="pageIndicatorTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="currentPageIndicatorTintColor" red="0.75686274509999996" green="0.1960784314" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </pageControl>
                                             </subviews>
                                             <constraints>
@@ -100,15 +94,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Infinite2TableViewCell" rowHeight="101" id="Pbe-Q2-B3O" customClass="Infinite2TableViewCell" customModule="Example" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="189" width="600" height="101"/>
+                                        <rect key="frame" x="0.0" y="189" width="375" height="101"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Pbe-Q2-B3O" id="Vro-Kf-tWq">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                            <frame key="frameInset" width="375" height="101"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ba3-za-Kdk" customClass="InfiniteCollectionView" customModule="InfiniteCollectionView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9h8-PU-jeW">
                                                         <size key="itemSize" width="100" height="100"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -122,7 +115,6 @@
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
                                                         </collectionViewCell>
                                                     </cells>
@@ -142,7 +134,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="aif-qL-b6r" firstAttribute="top" secondItem="blK-sK-Rl8" secondAttribute="bottom" id="BCF-CI-ZhI"/>
                             <constraint firstItem="blK-sK-Rl8" firstAttribute="leading" secondItem="hwa-cs-SAI" secondAttribute="leading" id="fCJ-oD-DRh"/>
@@ -156,7 +148,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SUZ-hf-A1r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="755" y="542"/>
+            <point key="canvasLocation" x="-489" y="157"/>
         </scene>
     </scenes>
 </document>

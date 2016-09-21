@@ -20,7 +20,7 @@ final class Pattern2ViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.separatorStyle = .None
+            tableView.separatorStyle = .none
         }
     }
 }
@@ -28,10 +28,10 @@ final class Pattern2ViewController: UIViewController {
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 extension Pattern2ViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
         } else if section == 1 {
@@ -39,18 +39,18 @@ extension Pattern2ViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return 0
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(InfiniteTableViewCell.identifier) as! InfiniteTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: InfiniteTableViewCell.identifier) as! InfiniteTableViewCell
             return cell
         } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(Infinite2TableViewCell.identifier) as! Infinite2TableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Infinite2TableViewCell.identifier) as! Infinite2TableViewCell
             return cell
         } else {
             return UITableViewCell()
         }
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return 240
         } else if indexPath.section == 1 {
@@ -66,13 +66,13 @@ final class InfiniteTableViewCell: UITableViewCell {
         didSet {
             collectionView.infiniteDataSource = self
             collectionView.infiniteDelegate = self
-            collectionView.cellWidth = UIScreen.mainScreen().bounds.width
-            collectionView.registerNib(ImageCollectionViewCell.nib, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+            collectionView.cellWidth = UIScreen.main.bounds.width
+            collectionView.register(ImageCollectionViewCell.nib, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
         }
     }
     @IBOutlet weak var layout: UICollectionViewFlowLayout! {
         didSet {
-            layout.itemSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: 239)
+            layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 239)
         }
     }
     @IBOutlet weak var pageControl: UIPageControl! {
@@ -84,18 +84,16 @@ final class InfiniteTableViewCell: UITableViewCell {
 
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
 extension InfiniteTableViewCell: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
-    func numberOfItems(collectionView: UICollectionView) -> Int {
+    func number(ofItems collectionView: UICollectionView) -> Int {
         return 4
     }
-    func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCollectionViewCell.identifier, forIndexPath: dequeueIndexPath) as! ImageCollectionViewCell
-        cell.configure(dequeueIndexPath: indexPath)
+    func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: dequeueIndexPath) as! ImageCollectionViewCell
+        cell.configure(dequeueIndexPath: usableIndexPath)
         return cell
     }
-    func didSelectCellAtIndexPath(collectionView: UICollectionView, indexPath: NSIndexPath) {
-    }
-    func didUpdatePageIndex(index: Int) {
-        pageControl.currentPage = index
+    func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {
+        pageControl.currentPage = pageIndex
     }
 }
 
@@ -106,27 +104,19 @@ final class Infinite2TableViewCell: UITableViewCell {
             collectionView.infiniteDataSource = self
             collectionView.infiniteDelegate = self
             collectionView.cellWidth = 100
-            collectionView.registerNib(ImageCollectionViewCell.nib, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+            collectionView.register(ImageCollectionViewCell.nib, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
         }
     }
 }
 
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
 extension Infinite2TableViewCell: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
-    func numberOfItems(collectionView: UICollectionView) -> Int {
+    func number(ofItems collectionView: UICollectionView) -> Int {
         return 10
     }
-    func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCollectionViewCell.identifier, forIndexPath: dequeueIndexPath) as! ImageCollectionViewCell
-        cell.configure(dequeueIndexPath: indexPath)
+    func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: dequeueIndexPath) as! ImageCollectionViewCell
+        cell.configure(dequeueIndexPath: usableIndexPath)
         return cell
     }
 }
-
-
-
-
-
-
-
-
