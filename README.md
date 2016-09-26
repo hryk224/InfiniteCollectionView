@@ -10,7 +10,7 @@ Infinite horizontal scrolling using `UICollectionView`
 
 ## Requirements
 - iOS 8.0+
-- Swift 2.2+
+- Swift 3.0+
 - ARC
 
 ## install
