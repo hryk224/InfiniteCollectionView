@@ -14,7 +14,7 @@ public protocol InfiniteCollectionViewDataSource: class {
 }
 
 @objc public protocol InfiniteCollectionViewDelegate: class {
-    @objc optional func collectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath)
+    @objc optional func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath)
     @objc optional func scrollView(_ scrollView: UIScrollView, pageIndex: Int)
 }
 
@@ -116,7 +116,7 @@ extension InfiniteCollectionView: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension InfiniteCollectionView: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        infiniteDelegate?.collectionView?(collectionView, didSelectItemAt: IndexPath(row: correctedIndex(indexPath.item - indexOffset), section: 0))
+        infiniteDelegate?.infiniteCollectionView?(collectionView, didSelectItemAt: IndexPath(row: correctedIndex(indexPath.item - indexOffset), section: 0))
     }
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         centerIfNeeded(scrollView)
