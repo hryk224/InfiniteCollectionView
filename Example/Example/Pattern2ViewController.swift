@@ -119,4 +119,7 @@ extension Infinite2TableViewCell: InfiniteCollectionViewDataSource, InfiniteColl
         cell.configure(dequeueIndexPath: usableIndexPath)
         return cell
     }
+    func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath) {
+        print("didSelectItemAt: \(usableIndexPath.item)")
+    }
 }

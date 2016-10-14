@@ -52,7 +52,7 @@ func number(ofItems collectionView: UICollectionView) -> Int
 func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell
 
 // optional
-func collectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath)
+func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath)
 func scrollView(_ scrollView: UIScrollView, pageIndex: Int)
 ```
 

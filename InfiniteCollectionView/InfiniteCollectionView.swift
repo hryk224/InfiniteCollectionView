@@ -8,12 +8,20 @@
 
 import UIKit
 
-public protocol InfiniteCollectionViewDataSource: class {
+@objc public protocol InfiniteCollectionViewDataSource: class {
+    @objc @available(*, deprecated, renamed: "number(ofItems:)")
+    optional func numberOfItems(collectionView: UICollectionView) -> Int
+    @objc @available(*, deprecated, renamed: "collectionView(_:dequeueForItemAt:cellForItemAt:)")
+    optional func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell
     func number(ofItems collectionView: UICollectionView) -> Int
     func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell
 }
 
 @objc public protocol InfiniteCollectionViewDelegate: class {
+    @objc @available(*, deprecated, renamed: "infiniteCollectionView(_:didSelectItemAt:)")
+    optional func didSelectCellAtIndexPath(collectionView: UICollectionView, indexPath: NSIndexPath)
+    @objc @available(*, deprecated, renamed: "scrollView(_:pageIndex:)")
+    optional func didUpdatePageIndex(index: Int)
     @objc optional func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath)
     @objc optional func scrollView(_ scrollView: UIScrollView, pageIndex: Int)
 }

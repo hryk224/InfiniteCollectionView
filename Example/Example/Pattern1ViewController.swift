@@ -37,13 +37,16 @@ final class Pattern1ViewController: UIViewController {
 
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
 extension Pattern1ViewController: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
-    public func number(ofItems collectionView: UICollectionView) -> Int {
+    func number(ofItems collectionView: UICollectionView) -> Int {
         return items.count
     }
     func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: dequeueIndexPath) as! ImageCollectionViewCell
         cell.configure(dequeueIndexPath: usableIndexPath)
         return cell
+    }
+    func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath) {
+        print("didSelectItemAt: \(usableIndexPath.item)")
     }
     func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {
         pageControl.currentPage = pageIndex
