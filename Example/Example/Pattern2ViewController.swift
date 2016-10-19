@@ -62,6 +62,13 @@ extension Pattern2ViewController: UITableViewDataSource, UITableViewDelegate {
 
 final class InfiniteTableViewCell: UITableViewCell {
     static let identifier = "InfiniteTableViewCell"
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        NotificationCenter.default.addObserver(self, selector: #selector(InfiniteTableViewCell.rotate(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
     @IBOutlet weak var collectionView: InfiniteCollectionView! {
         didSet {
             collectionView.infiniteDataSource = self
@@ -80,6 +87,14 @@ final class InfiniteTableViewCell: UITableViewCell {
             pageControl.numberOfPages = 4
         }
     }
+    func rotate(_ notification: Notification) {
+        let size = CGSize(width: UIScreen.main.bounds.width, height: 239)
+        layout.itemSize = size
+        layout.invalidateLayout()
+        collectionView.cellWidth = size.width
+        collectionView.layoutIfNeeded()
+        collectionView.setNeedsLayout()
+    }
 }
 
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
@@ -89,7 +104,7 @@ extension InfiniteTableViewCell: InfiniteCollectionViewDataSource, InfiniteColle
     }
     func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: dequeueIndexPath) as! ImageCollectionViewCell
-        cell.configure(dequeueIndexPath: usableIndexPath)
+        cell.configure(usableIndexPath)
         return cell
     }
     func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {
@@ -99,6 +114,13 @@ extension InfiniteTableViewCell: InfiniteCollectionViewDataSource, InfiniteColle
 
 final class Infinite2TableViewCell: UITableViewCell {
     static let identifier = "Infinite2TableViewCell"
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        NotificationCenter.default.addObserver(self, selector: #selector(Infinite2TableViewCell.rotate(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
     @IBOutlet weak var collectionView: InfiniteCollectionView! {
         didSet {
             collectionView.infiniteDataSource = self
@@ -116,10 +138,12 @@ extension Infinite2TableViewCell: InfiniteCollectionViewDataSource, InfiniteColl
     }
     func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: dequeueIndexPath) as! ImageCollectionViewCell
-        cell.configure(dequeueIndexPath: usableIndexPath)
+        cell.configure(usableIndexPath)
         return cell
     }
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath) {
         print("didSelectItemAt: \(usableIndexPath.item)")
+    }
+    func rotate(_ notification: Notification) {
     }
 }
