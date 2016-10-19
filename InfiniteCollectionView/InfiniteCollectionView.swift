@@ -8,25 +8,39 @@
 
 import UIKit
 
-public protocol InfiniteCollectionViewDataSource: class {
-    func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell
-    func numberOfItems(collectionView: UICollectionView) -> Int
+@objc public protocol InfiniteCollectionViewDataSource: class {
+    @objc @available(*, deprecated, renamed: "number(ofItems:)")
+    optional func numberOfItems(collectionView: UICollectionView) -> Int
+    @objc @available(*, deprecated, renamed: "collectionView(_:dequeueForItemAt:cellForItemAt:)")
+    optional func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell
+    func number(ofItems collectionView: UICollectionView) -> Int
+    func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell
 }
 
 @objc public protocol InfiniteCollectionViewDelegate: class {
+    @objc @available(*, deprecated, renamed: "infiniteCollectionView(_:didSelectItemAt:)")
     optional func didSelectCellAtIndexPath(collectionView: UICollectionView, indexPath: NSIndexPath)
+    @objc @available(*, deprecated, renamed: "scrollView(_:pageIndex:)")
     optional func didUpdatePageIndex(index: Int)
+    @objc optional func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath)
+    @objc optional func scrollView(_ scrollView: UIScrollView, pageIndex: Int)
 }
 
-public class InfiniteCollectionView: UICollectionView {
-    private typealias Me = InfiniteCollectionView
-    private static let dummyCount: Int = 3
-    private static let defaultIdentifier = "Cell"
-    public weak var infiniteDataSource: InfiniteCollectionViewDataSource?
-    public weak var infiniteDelegate: InfiniteCollectionViewDelegate?
-    public var cellWidth: CGFloat = UIScreen.mainScreen().bounds.width
-    private var indexOffset: Int = 0
-    private var currentIndex: Int = 0
+open class InfiniteCollectionView: UICollectionView {
+    fileprivate typealias Me = InfiniteCollectionView
+    fileprivate static let dummyCount: Int = 3
+    fileprivate static let defaultIdentifier = "Cell"
+    open weak var infiniteDataSource: InfiniteCollectionViewDataSource?
+    open weak var infiniteDelegate: InfiniteCollectionViewDelegate?
+    open var cellWidth: CGFloat = UIScreen.main.bounds.width {
+        didSet {
+            contentWidth = totalContentWidth
+            setContentOffset(CGPoint(x: CGFloat(pageIndex + indexOffset) * cellWidth, y: contentOffset.y), animated: false)
+        }
+    }
+    fileprivate var indexOffset: Int = 0
+    fileprivate var contentWidth: CGFloat = 0
+    fileprivate var pageIndex = 0
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configure()
@@ -35,90 +49,86 @@ public class InfiniteCollectionView: UICollectionView {
         super.init(frame: frame, collectionViewLayout: layout)
         configure()
     }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
+    }
+    open override func reloadData() {
+        super.reloadData()
+        contentWidth = totalContentWidth
+    }
+    func rotate(_ notification: Notification) {
+        contentWidth = totalContentWidth
+    }
 }
 
 // MARK: - private
 private extension InfiniteCollectionView {
+    var totalContentWidth: CGFloat {
+        let numberOfCells = infiniteDataSource?.number(ofItems: self) ?? 0
+        return CGFloat(numberOfCells) * cellWidth
+    }
     func configure() {
         delegate = self
         dataSource = self
-        registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: Me.defaultIdentifier)
+        register(UICollectionViewCell.self, forCellWithReuseIdentifier: Me.defaultIdentifier)
+        NotificationCenter.default.addObserver(self, selector: #selector(InfiniteCollectionView.rotate(_:)), name: .UIDeviceOrientationDidChange, object: nil)
     }
-    
-    func centerIfNeeded(scrollView: UIScrollView) {
+    func centerIfNeeded(_ scrollView: UIScrollView) {
         let currentOffset = contentOffset
-        let contentWidth = totalContentWidth()
-        // Calculate the centre of content X position offset and the current distance from that centre point
-        let centerOffsetX: CGFloat = (CGFloat(Me.dummyCount) * contentWidth - bounds.size.width) / 2
-        let distFromCentre = centerOffsetX - currentOffset.x
-        if fabs(distFromCentre) > (contentWidth / 4) {
-            // Total cells (including partial cells) from centre
-            let cellcount = distFromCentre / cellWidth
-            // Amount of cells to shift (whole number) - conditional statement due to nature of +ve or -ve cellcount
+        let centerX = (CGFloat(Me.dummyCount) * contentWidth - bounds.width) / 2
+        let distFromCenter = centerX - currentOffset.x
+        if fabs(distFromCenter) > (contentWidth / 4) {
+            let cellcount = distFromCenter / cellWidth
             let shiftCells = Int((cellcount > 0) ? floor(cellcount) : ceil(cellcount))
-            // Amount left over to correct for
-            let offsetCorrection = (abs(cellcount) % 1) * cellWidth
-            // Scroll back to the centre of the view, offset by the correction to ensure it's not noticable
-            if centerOffsetX > contentOffset.x {
-                //left scrolling
-                contentOffset = CGPoint(x: centerOffsetX - offsetCorrection, y: currentOffset.y)
-            } else if contentOffset.x > centerOffsetX {
-                //right scrolling
-                contentOffset = CGPoint(x: centerOffsetX + offsetCorrection, y: currentOffset.y)
+            let offsetCorrection = (abs(cellcount).truncatingRemainder(dividingBy: 1)) * cellWidth
+            if centerX > contentOffset.x {
+                contentOffset = CGPoint(x: centerX - offsetCorrection, y: currentOffset.y)
+            } else {
+                contentOffset = CGPoint(x: centerX + offsetCorrection, y: currentOffset.y)
             }
-            // Make content shift as per shiftCells
             shiftContentArray(correctedIndex(shiftCells))
             reloadData()
         }
         let centerPoint = CGPoint(x: scrollView.frame.size.width / 2 + scrollView.contentOffset.x, y: scrollView.frame.size.height / 2 + scrollView.contentOffset.y)
-        guard let indexPath = indexPathForItemAtPoint(centerPoint) else { return }
-        infiniteDelegate?.didUpdatePageIndex?(correctedIndex(indexPath.item - indexOffset))
+        guard let indexPath = indexPathForItem(at: centerPoint) else { return }
+        pageIndex = correctedIndex(indexPath.item - indexOffset)
+        infiniteDelegate?.scrollView?(scrollView, pageIndex: pageIndex)
     }
-    func shiftContentArray(offset: Int) {
+    func shiftContentArray(_ offset: Int) {
         indexOffset += offset
     }
-    func totalContentWidth() -> CGFloat {
-        let numberOfCells = infiniteDataSource?.numberOfItems(self) ?? 0
-        return CGFloat(numberOfCells) * cellWidth
-    }
-    func correctedIndex(indexToCorrect: Int) -> Int {
-        if let numberOfItems = infiniteDataSource?.numberOfItems(self) {
-            if numberOfItems > indexToCorrect && indexToCorrect >= 0 {
-                return indexToCorrect
-            } else {
-                let countInIndex = Float(indexToCorrect) / Float(numberOfItems)
-                let flooredValue = Int(floor(countInIndex))
-                let offset = numberOfItems * flooredValue
-                return indexToCorrect - offset
-            }
-        } else {
-            return 0
+    func correctedIndex(_ indexToCorrect: Int) -> Int {
+        guard let numberOfItems = infiniteDataSource?.number(ofItems: self) else { return 0 }
+        if numberOfItems > indexToCorrect && indexToCorrect >= 0 {
+            return indexToCorrect
         }
+        let countInIndex = Float(indexToCorrect) / Float(numberOfItems)
+        let flooredValue = Int(floor(countInIndex))
+        let offset = numberOfItems * flooredValue
+        return indexToCorrect - offset
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension InfiniteCollectionView: UICollectionViewDataSource {
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numberOfItems = infiniteDataSource?.numberOfItems(self) ?? 0
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let numberOfItems = infiniteDataSource?.number(ofItems: collectionView) ?? 0
         return Me.dummyCount * numberOfItems
     }
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var maybeCell: UICollectionViewCell!
-        maybeCell = infiniteDataSource?.cellForItemAtIndexPath(self, dequeueIndexPath: indexPath, indexPath: NSIndexPath(forRow: correctedIndex(indexPath.item - indexOffset), inSection: 0))
-        if maybeCell == nil {
-            maybeCell = collectionView.dequeueReusableCellWithReuseIdentifier(Me.defaultIdentifier, forIndexPath: indexPath)
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let maybeCell = infiniteDataSource?.collectionView(collectionView, dequeueForItemAt: indexPath, cellForItemAt: IndexPath(item: correctedIndex(indexPath.item - indexOffset), section: 0)) {
+            return maybeCell
         }
-        return maybeCell
+        return collectionView.dequeueReusableCell(withReuseIdentifier: Me.defaultIdentifier, for: indexPath)
     }
 }
 
 // MARK: - UICollectionViewDelegate
 extension InfiniteCollectionView: UICollectionViewDelegate {
-    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        infiniteDelegate?.didSelectCellAtIndexPath?(self, indexPath: NSIndexPath(forRow: correctedIndex(indexPath.item - indexOffset), inSection: 0))
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        infiniteDelegate?.infiniteCollectionView?(collectionView, didSelectItemAt: IndexPath(item: correctedIndex(indexPath.item - indexOffset), section: 0))
     }
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         centerIfNeeded(scrollView)
     }
 }

@@ -16,29 +16,29 @@ final class MainViewController: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: identifier)
+            tableView.register(UITableViewCell.self, forCellReuseIdentifier: identifier)
             tableView.rowHeight = 100
             tableView.estimatedRowHeight = 100
         }
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
-            tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
+            tableView.deselectRow(at: selectedIndexPath, animated: true)
         }
     }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return patterns.count
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier)!
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
         cell.textLabel?.text = patterns[indexPath.row]
         return cell
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let controller = Pattern1ViewController.createFromStoryboard()
             navigationController?.pushViewController(controller, animated: true)

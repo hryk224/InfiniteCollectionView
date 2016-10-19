@@ -15,13 +15,13 @@ final class Pattern1ViewController: UIViewController {
         didSet {
             collectionView.infiniteDataSource = self
             collectionView.infiniteDelegate = self
-            collectionView.cellWidth = UIScreen.mainScreen().bounds.width
-            collectionView.registerNib(ImageCollectionViewCell.nib, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
+            collectionView.cellWidth = UIScreen.main.bounds.width
+            collectionView.register(ImageCollectionViewCell.nib, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
         }
     }
     @IBOutlet weak var layout: UICollectionViewFlowLayout! {
         didSet {
-            layout.itemSize = CGSize(width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height)
+            layout.itemSize = UIScreen.main.bounds.size
         }
     }
     @IBOutlet weak var pageControl: UIPageControl! {
@@ -33,21 +33,30 @@ final class Pattern1ViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Pattern1", bundle: nil)
         return storyboard.instantiateInitialViewController() as! Pattern1ViewController
     }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        layout.itemSize = size
+        layout.invalidateLayout()
+        collectionView.cellWidth = size.width
+        collectionView.layoutIfNeeded()
+        collectionView.setNeedsLayout()
+    }
 }
 
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
 extension Pattern1ViewController: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
-    func numberOfItems(collectionView: UICollectionView) -> Int {
+    func number(ofItems collectionView: UICollectionView) -> Int {
         return items.count
     }
-    func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ImageCollectionViewCell.identifier, forIndexPath: dequeueIndexPath) as! ImageCollectionViewCell
-        cell.configure(dequeueIndexPath: indexPath)
+    func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: dequeueIndexPath) as! ImageCollectionViewCell
+        cell.configure(usableIndexPath)
         return cell
     }
-    func didSelectCellAtIndexPath(collectionView: UICollectionView, indexPath: NSIndexPath) {
+    func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath) {
+        print("didSelectItemAt: \(usableIndexPath.item)")
     }
-    func didUpdatePageIndex(index: Int) {
-        pageControl.currentPage = index
+    func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {
+        pageControl.currentPage = pageIndex
     }
 }

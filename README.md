@@ -3,14 +3,14 @@
 Infinite horizontal scrolling using `UICollectionView`
 
 [![CocoaPods Compatible](http://img.shields.io/cocoapods/v/InfiniteCollectionView.svg?style=flat)](http://cocoadocs.org/docsets/InfiniteCollectionView)
-[![Swift 2.2](https://img.shields.io/badge/Swift-2.2-orange.svg?style=flat)](https://developer.apple.com/swift/)
+[![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
 
 <img src="https://github.com/hryk224/InfiniteCollectionView/wiki/images/sample1.gif" width="320" >
 <img src="https://github.com/hryk224/InfiniteCollectionView/wiki/images/sample2.gif" width="320" >
 
 ## Requirements
 - iOS 8.0+
-- Swift 2.2+
+- Swift 3.0+
 - ARC
 
 ## install
@@ -48,12 +48,12 @@ collectionView.cellWidth = XXX
 
 ```Swift
 // protocol
-func cellForItemAtIndexPath(collectionView: UICollectionView, dequeueIndexPath: NSIndexPath, indexPath: NSIndexPath) -> UICollectionViewCell
-func numberOfItems(collectionView: UICollectionView) -> Int
+func number(ofItems collectionView: UICollectionView) -> Int
+func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell
 
 // optional
-func didSelectCellAtIndexPath(collectionView: UICollectionView, indexPath: NSIndexPath)
-func didUpdatePageIndex(index: Int)
+func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath)
+func scrollView(_ scrollView: UIScrollView, pageIndex: Int)
 ```
 
 ## Photos from
