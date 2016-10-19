@@ -21,7 +21,7 @@ final class Pattern1ViewController: UIViewController {
     }
     @IBOutlet weak var layout: UICollectionViewFlowLayout! {
         didSet {
-            layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            layout.itemSize = UIScreen.main.bounds.size
         }
     }
     @IBOutlet weak var pageControl: UIPageControl! {
@@ -33,6 +33,14 @@ final class Pattern1ViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Pattern1", bundle: nil)
         return storyboard.instantiateInitialViewController() as! Pattern1ViewController
     }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        layout.itemSize = size
+        layout.invalidateLayout()
+        collectionView.cellWidth = size.width
+        collectionView.layoutIfNeeded()
+        collectionView.setNeedsLayout()
+    }
 }
 
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
@@ -42,7 +50,7 @@ extension Pattern1ViewController: InfiniteCollectionViewDataSource, InfiniteColl
     }
     func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: dequeueIndexPath) as! ImageCollectionViewCell
-        cell.configure(dequeueIndexPath: usableIndexPath)
+        cell.configure(usableIndexPath)
         return cell
     }
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath) {
