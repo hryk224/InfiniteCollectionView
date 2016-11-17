@@ -32,14 +32,8 @@ open class InfiniteCollectionView: UICollectionView {
     fileprivate static let defaultIdentifier = "Cell"
     open weak var infiniteDataSource: InfiniteCollectionViewDataSource?
     open weak var infiniteDelegate: InfiniteCollectionViewDelegate?
-    open var cellWidth: CGFloat = UIScreen.main.bounds.width {
-        didSet {
-            contentWidth = totalContentWidth
-            setContentOffset(CGPoint(x: CGFloat(pageIndex + indexOffset) * cellWidth, y: contentOffset.y), animated: false)
-        }
-    }
     fileprivate var indexOffset: Int = 0
-    fileprivate var contentWidth: CGFloat = 0
+    fileprivate var contentWidth: CGFloat = UIScreen.main.bounds.width
     fileprivate var pageIndex = 0
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -56,16 +50,21 @@ open class InfiniteCollectionView: UICollectionView {
         super.reloadData()
         contentWidth = totalContentWidth
     }
-    func rotate(_ notification: Notification) {
+    open func rotate(_ notification: Notification) {
         contentWidth = totalContentWidth
+        contentOffset = CGPoint(x: CGFloat(pageIndex + indexOffset) * cellWidth, y: contentOffset.y)
     }
 }
 
 // MARK: - private
 private extension InfiniteCollectionView {
+    var cellWidth: CGFloat {
+        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return 0 }
+        return layout.itemSize.width + layout.minimumInteritemSpacing
+    }
     var totalContentWidth: CGFloat {
-        let numberOfCells = infiniteDataSource?.number(ofItems: self) ?? 0
-        return CGFloat(numberOfCells) * cellWidth
+        let numberOfCells: CGFloat = CGFloat(infiniteDataSource?.number(ofItems: self) ?? 0)
+        return numberOfCells * cellWidth
     }
     func configure() {
         delegate = self
@@ -75,7 +74,7 @@ private extension InfiniteCollectionView {
     }
     func centerIfNeeded(_ scrollView: UIScrollView) {
         let currentOffset = contentOffset
-        let centerX = (CGFloat(Me.dummyCount) * contentWidth - bounds.width) / 2
+        let centerX = (scrollView.contentSize.width - bounds.width) / 2
         let distFromCenter = centerX - currentOffset.x
         if fabs(distFromCenter) > (contentWidth / 4) {
             let cellcount = distFromCenter / cellWidth
