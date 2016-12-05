@@ -10,12 +10,11 @@ import UIKit
 import InfiniteCollectionView
 
 final class Pattern1ViewController: UIViewController {
-    var items = ["1", "2", "3", "4"]
+    var itemsCount: Int = 5
     @IBOutlet weak var collectionView: InfiniteCollectionView! {
         didSet {
             collectionView.infiniteDataSource = self
             collectionView.infiniteDelegate = self
-            collectionView.cellWidth = UIScreen.main.bounds.width
             collectionView.register(ImageCollectionViewCell.nib, forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
         }
     }
@@ -26,7 +25,7 @@ final class Pattern1ViewController: UIViewController {
     }
     @IBOutlet weak var pageControl: UIPageControl! {
         didSet {
-            pageControl.numberOfPages = items.count
+            pageControl.numberOfPages = itemsCount
         }
     }
     static func createFromStoryboard() -> Pattern1ViewController {
@@ -37,7 +36,6 @@ final class Pattern1ViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         layout.itemSize = size
         layout.invalidateLayout()
-        collectionView.cellWidth = size.width
         collectionView.layoutIfNeeded()
         collectionView.setNeedsLayout()
     }
@@ -46,11 +44,11 @@ final class Pattern1ViewController: UIViewController {
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
 extension Pattern1ViewController: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
     func number(ofItems collectionView: UICollectionView) -> Int {
-        return items.count
+        return itemsCount
     }
     func collectionView(_ collectionView: UICollectionView, dequeueForItemAt dequeueIndexPath: IndexPath, cellForItemAt usableIndexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: dequeueIndexPath) as! ImageCollectionViewCell
-        cell.configure(usableIndexPath)
+        cell.configure(indexPath: usableIndexPath)
         return cell
     }
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath) {

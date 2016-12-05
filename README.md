@@ -6,6 +6,7 @@ Infinite horizontal scrolling using `UICollectionView`
 [![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
 
 <img src="https://github.com/hryk224/InfiniteCollectionView/wiki/images/sample1.gif" width="320" >
+
 <img src="https://github.com/hryk224/InfiniteCollectionView/wiki/images/sample2.gif" width="320" >
 
 ## Requirements
@@ -43,7 +44,6 @@ import InfiniteCollectionView
 ```Swift
 collectionView.infiniteDataSource = XXX
 collectionView.infiniteDelegate = XXX
-collectionView.cellWidth = XXX
 ```
 
 ```Swift
