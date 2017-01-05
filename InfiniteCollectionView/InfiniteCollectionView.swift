@@ -33,7 +33,6 @@ open class InfiniteCollectionView: UICollectionView {
     open weak var infiniteDataSource: InfiniteCollectionViewDataSource?
     open weak var infiniteDelegate: InfiniteCollectionViewDelegate?
     fileprivate var indexOffset: Int = 0
-    fileprivate var contentWidth: CGFloat = UIScreen.main.bounds.width
     fileprivate var pageIndex = 0
     @available(*, deprecated, message: "It becomes unnecessary because it uses UICollectionViewFlowLayout.")
     open var cellWidth: CGFloat?
@@ -48,13 +47,8 @@ open class InfiniteCollectionView: UICollectionView {
     deinit {
         NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
     }
-    open override func reloadData() {
-        super.reloadData()
-        contentWidth = totalContentWidth
-    }
     open func rotate(_ notification: Notification) {
-        contentWidth = totalContentWidth
-        contentOffset = CGPoint(x: CGFloat(pageIndex + indexOffset) * itemWidth, y: contentOffset.y)
+        setContentOffset(CGPoint(x: CGFloat(pageIndex + indexOffset) * itemWidth, y: contentOffset.y), animated: false)
     }
 }
 
@@ -78,7 +72,7 @@ private extension InfiniteCollectionView {
         let currentOffset = contentOffset
         let centerX = (scrollView.contentSize.width - bounds.width) / 2
         let distFromCenter = centerX - currentOffset.x
-        if fabs(distFromCenter) > (contentWidth / 4) {
+        if fabs(distFromCenter) > (totalContentWidth / 4) {
             let cellcount = distFromCenter / itemWidth
             let shiftCells = Int((cellcount > 0) ? floor(cellcount) : ceil(cellcount))
             let offsetCorrection = (abs(cellcount).truncatingRemainder(dividingBy: 1)) * itemWidth

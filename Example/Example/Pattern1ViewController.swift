@@ -28,14 +28,21 @@ final class Pattern1ViewController: UIViewController {
             pageControl.numberOfPages = itemsCount
         }
     }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        NotificationCenter.default.addObserver(self, selector: #selector(Pattern1ViewController.rotate(_:)), name: .UIDeviceOrientationDidChange, object: nil)
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
+    }
     static func createFromStoryboard() -> Pattern1ViewController {
         let storyboard = UIStoryboard(name: "Pattern1", bundle: nil)
         return storyboard.instantiateInitialViewController() as! Pattern1ViewController
     }
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        layout.itemSize = size
+    func rotate(_ notification: Notification) {
+        layout.itemSize = UIScreen.main.bounds.size
         layout.invalidateLayout()
+        collectionView.rotate(notification)
         collectionView.layoutIfNeeded()
         collectionView.setNeedsLayout()
     }
