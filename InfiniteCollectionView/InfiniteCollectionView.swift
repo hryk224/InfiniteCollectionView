@@ -50,6 +50,10 @@ open class InfiniteCollectionView: UICollectionView {
     open func rotate(_ notification: Notification) {
         setContentOffset(CGPoint(x: CGFloat(pageIndex + indexOffset) * itemWidth, y: contentOffset.y), animated: false)
     }
+    open override func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionViewScrollPosition) {
+        let updatedIndexPath = IndexPath(row: correctedIndex(indexPath!.item + indexOffset), section: 0);
+        super.selectItem(at: updatedIndexPath, animated: animated, scrollPosition: scrollPosition);
+    }
 }
 
 // MARK: - private
