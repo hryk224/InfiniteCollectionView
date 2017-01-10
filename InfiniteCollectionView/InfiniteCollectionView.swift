@@ -50,9 +50,27 @@ open class InfiniteCollectionView: UICollectionView {
     open func rotate(_ notification: Notification) {
         setContentOffset(CGPoint(x: CGFloat(pageIndex + indexOffset) * itemWidth, y: contentOffset.y), animated: false)
     }
+    
     open override func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionViewScrollPosition) {
-        let updatedIndexPath = IndexPath(row: correctedIndex(indexPath!.item + indexOffset), section: 0);
-        super.selectItem(at: updatedIndexPath, animated: animated, scrollPosition: scrollPosition);
+        
+        // Correct the input IndexPath
+        let correctedIndexPath = IndexPath(row: correctedIndex(indexPath!.item + indexOffset), section: 0);
+        
+        // Get the currently visible cell(s) - assumes a cell is visible
+        guard let visibleCell = self.visibleCells.first else{
+            return; // Nothing to select...
+        }
+        // Index path of the cell - does not consider multiple cells on the screen at the same time
+        var visibleIndexPath : IndexPath! =  self.indexPath(for: visibleCell);
+        
+        let testIndexPath = IndexPath(row: correctedIndex(visibleIndexPath!.item), section: 0);
+        
+        guard correctedIndexPath != testIndexPath else{
+            return; // Do not re-select the same cell
+        }
+        
+        // Call supercase to select the correct IndexPath
+        super.selectItem(at: correctedIndexPath, animated: animated, scrollPosition: scrollPosition);
     }
 }
 
