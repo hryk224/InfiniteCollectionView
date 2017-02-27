@@ -10,18 +10,30 @@ import UIKit
 import InfiniteCollectionView
 
 final class MainViewController: UIViewController {
-    var patterns = ["pattern1", "pattern2"]
-    let identifier = "tableViewCell"
-    var cellHeight: CGFloat {
-        return (UIScreen.main.bounds.height - 64) / CGFloat(patterns.count)
+    enum Pattern: Int, CustomStringConvertible {
+        case pattern1
+        case pattern2
+        static var count: Int { return 2 }
+        var description: String {
+            switch self {
+            case .pattern1: return "pattern1"
+            case .pattern2: return "pattern2"
+            }
+        }
+    }
+    fileprivate let identifier = "tableViewCell"
+    fileprivate var cellHeight: CGFloat {
+        return (UIScreen.main.bounds.height - 64) / CGFloat(Pattern.count)
     }
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.register(UITableViewCell.self, forCellReuseIdentifier: identifier)
             tableView.rowHeight = cellHeight
             tableView.estimatedRowHeight = cellHeight
+            tableView.separatorInset = .zero
+            tableView.layoutMargins = .zero
+            tableView.register(UITableViewCell.self, forCellReuseIdentifier: identifier)
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -34,25 +46,25 @@ final class MainViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return patterns.count
+        return Pattern.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
-        cell.textLabel?.text = patterns[indexPath.row]
+        let pattern = Pattern(rawValue: indexPath.row)
+        cell.textLabel?.text = pattern?.description
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
+        guard let pattern = Pattern(rawValue: indexPath.row) else { return }
+        switch pattern {
+        case .pattern1:
             let controller = Pattern1ViewController.createFromStoryboard()
             navigationController?.pushViewController(controller, animated: true)
-        case 1:
+        case .pattern2:
             let controller = Pattern2ViewController.createFromStoryboard()
             navigationController?.pushViewController(controller, animated: true)
-        default:
-            break
         }
     }
 }

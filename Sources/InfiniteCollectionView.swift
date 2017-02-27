@@ -27,15 +27,14 @@ import UIKit
 }
 
 open class InfiniteCollectionView: UICollectionView {
-    fileprivate typealias Me = InfiniteCollectionView
-    fileprivate static let dummyCount: Int = 3
-    fileprivate static let defaultIdentifier = "Cell"
     open weak var infiniteDataSource: InfiniteCollectionViewDataSource?
     open weak var infiniteDelegate: InfiniteCollectionViewDelegate?
-    fileprivate var indexOffset: Int = 0
-    fileprivate var pageIndex = 0
     @available(*, deprecated, message: "It becomes unnecessary because it uses UICollectionViewFlowLayout.")
     open var cellWidth: CGFloat?
+    fileprivate let dummyCount: Int = 3
+    fileprivate let defaultIdentifier = "Cell"
+    fileprivate var indexOffset: Int = 0
+    fileprivate var pageIndex = 0
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configure()
@@ -50,27 +49,24 @@ open class InfiniteCollectionView: UICollectionView {
     open func rotate(_ notification: Notification) {
         setContentOffset(CGPoint(x: CGFloat(pageIndex + indexOffset) * itemWidth, y: contentOffset.y), animated: false)
     }
-    
     open override func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionViewScrollPosition) {
-        
+        guard let indexPath = indexPath else { return }
         // Correct the input IndexPath
-        let correctedIndexPath = IndexPath(row: correctedIndex(indexPath!.item + indexOffset), section: 0);
-        
+        let correctedIndexPath = IndexPath(row: correctedIndex(indexPath.item + indexOffset), section: 0)
         // Get the currently visible cell(s) - assumes a cell is visible
-        guard let visibleCell = self.visibleCells.first else{
-            return; // Nothing to select...
+        guard let visibleCell = self.visibleCells.first else {
+            return
         }
         // Index path of the cell - does not consider multiple cells on the screen at the same time
-        var visibleIndexPath : IndexPath! =  self.indexPath(for: visibleCell);
-        
-        let testIndexPath = IndexPath(row: correctedIndex(visibleIndexPath!.item), section: 0);
-        
-        guard correctedIndexPath != testIndexPath else{
-            return; // Do not re-select the same cell
+        guard let visibleIndexPath =  self.indexPath(for: visibleCell) else {
+            return
         }
-        
+        let testIndexPath = IndexPath(row: correctedIndex(visibleIndexPath.item), section: 0)
+        guard correctedIndexPath != testIndexPath else {
+            return // Do not re-select the same cell
+        }
         // Call supercase to select the correct IndexPath
-        super.selectItem(at: correctedIndexPath, animated: animated, scrollPosition: scrollPosition);
+        super.selectItem(at: correctedIndexPath, animated: animated, scrollPosition: scrollPosition)
     }
 }
 
@@ -87,7 +83,7 @@ private extension InfiniteCollectionView {
     func configure() {
         delegate = self
         dataSource = self
-        register(UICollectionViewCell.self, forCellWithReuseIdentifier: Me.defaultIdentifier)
+        register(UICollectionViewCell.self, forCellWithReuseIdentifier: defaultIdentifier)
         NotificationCenter.default.addObserver(self, selector: #selector(InfiniteCollectionView.rotate(_:)), name: .UIDeviceOrientationDidChange, object: nil)
     }
     func centerIfNeeded(_ scrollView: UIScrollView) {
@@ -103,16 +99,14 @@ private extension InfiniteCollectionView {
             } else {
                 contentOffset = CGPoint(x: centerX + offsetCorrection, y: currentOffset.y)
             }
-            shiftContentArray(correctedIndex(shiftCells))
+            let offset = correctedIndex(shiftCells)
+            indexOffset += offset
             reloadData()
         }
         let centerPoint = CGPoint(x: scrollView.frame.size.width / 2 + scrollView.contentOffset.x, y: scrollView.frame.size.height / 2 + scrollView.contentOffset.y)
         guard let indexPath = indexPathForItem(at: centerPoint) else { return }
         pageIndex = correctedIndex(indexPath.item - indexOffset)
         infiniteDelegate?.scrollView?(scrollView, pageIndex: pageIndex)
-    }
-    func shiftContentArray(_ offset: Int) {
-        indexOffset += offset
     }
     func correctedIndex(_ indexToCorrect: Int) -> Int {
         guard let numberOfItems = infiniteDataSource?.number(ofItems: self) else { return 0 }
@@ -130,13 +124,13 @@ private extension InfiniteCollectionView {
 extension InfiniteCollectionView: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let numberOfItems = infiniteDataSource?.number(ofItems: collectionView) ?? 0
-        return Me.dummyCount * numberOfItems
+        return dummyCount * numberOfItems
     }
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let maybeCell = infiniteDataSource?.collectionView(collectionView, dequeueForItemAt: indexPath, cellForItemAt: IndexPath(item: correctedIndex(indexPath.item - indexOffset), section: 0)) {
-            return maybeCell
+        guard let cell = infiniteDataSource?.collectionView(collectionView, dequeueForItemAt: indexPath, cellForItemAt: IndexPath(item: correctedIndex(indexPath.item - indexOffset), section: 0)) else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: defaultIdentifier, for: indexPath)
         }
-        return collectionView.dequeueReusableCell(withReuseIdentifier: Me.defaultIdentifier, for: indexPath)
+        return cell
     }
 }
 
