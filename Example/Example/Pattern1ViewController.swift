@@ -39,7 +39,7 @@ final class Pattern1ViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Pattern1", bundle: nil)
         return storyboard.instantiateInitialViewController() as! Pattern1ViewController
     }
-    func rotate(_ notification: Notification) {
+    @objc func rotate(_ notification: Notification) {
         layout.itemSize = UIScreen.main.bounds.size
         layout.invalidateLayout()
         collectionView.rotate(notification)
