@@ -81,7 +81,7 @@ final class InfiniteTableViewCell: UITableViewCell {
             pageControl.numberOfPages = 4
         }
     }
-    func rotate(_ notification: Notification) {
+    @objc func rotate(_ notification: Notification) {
         let size = CGSize(width: UIScreen.main.bounds.width, height: 239)
         layout.itemSize = size
         layout.invalidateLayout()
@@ -137,7 +137,7 @@ extension Infinite2TableViewCell: InfiniteCollectionViewDataSource, InfiniteColl
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath) {
         print("didSelectItemAt: \(usableIndexPath.item)")
     }
-    func rotate(_ notification: Notification) {
+    @objc func rotate(_ notification: Notification) {
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.rotate(notification)
         collectionView.layoutIfNeeded()
