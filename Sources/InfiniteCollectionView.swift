@@ -46,7 +46,7 @@ open class InfiniteCollectionView: UICollectionView {
     deinit {
         NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
     }
-    open func rotate(_ notification: Notification) {
+    @objc open func rotate(_ notification: Notification) {
         setContentOffset(CGPoint(x: CGFloat(pageIndex + indexOffset) * itemWidth, y: contentOffset.y), animated: false)
     }
     open override func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionViewScrollPosition) {
@@ -76,9 +76,17 @@ private extension InfiniteCollectionView {
         guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return 0 }
         return layout.itemSize.width + layout.minimumInteritemSpacing
     }
+    var itemHeight: CGFloat {
+        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return 0 }
+        return layout.itemSize.height + layout.minimumLineSpacing
+    }
     var totalContentWidth: CGFloat {
         let numberOfCells: CGFloat = CGFloat(infiniteDataSource?.number(ofItems: self) ?? 0)
         return numberOfCells * itemWidth
+    }
+    var totalContentHeight: CGFloat {
+        let numberOfCells: CGFloat = CGFloat(infiniteDataSource?.number(ofItems: self) ?? 0)
+        return numberOfCells * itemHeight
     }
     func configure() {
         delegate = self
@@ -98,6 +106,21 @@ private extension InfiniteCollectionView {
                 contentOffset = CGPoint(x: centerX - offsetCorrection, y: currentOffset.y)
             } else {
                 contentOffset = CGPoint(x: centerX + offsetCorrection, y: currentOffset.y)
+            }
+            let offset = correctedIndex(shiftCells)
+            indexOffset += offset
+            reloadData()
+        }
+        let centerY = (scrollView.contentSize.height - bounds.height) / 2
+        let distFromCenterY = centerY - currentOffset.y
+        if fabs(distFromCenterY) > (totalContentHeight / 4) {
+            let cellcount = distFromCenterY / itemHeight
+            let shiftCells = Int((cellcount > 0) ? floor(cellcount) : ceil(cellcount))
+            let offsetCorrection = (abs(cellcount).truncatingRemainder(dividingBy: 1)) * itemHeight
+            if centerY > contentOffset.y {
+                contentOffset = CGPoint(x: currentOffset.x, y: centerY - offsetCorrection)
+            } else {
+                contentOffset = CGPoint(x: currentOffset.x, y: centerY + offsetCorrection)
             }
             let offset = correctedIndex(shiftCells)
             indexOffset += offset

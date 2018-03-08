@@ -13,11 +13,13 @@ final class MainViewController: UIViewController {
     enum Pattern: Int, CustomStringConvertible {
         case pattern1
         case pattern2
-        static var count: Int { return 2 }
+        case pattern3
+        static var count: Int { return 3 }
         var description: String {
             switch self {
             case .pattern1: return "pattern1"
             case .pattern2: return "pattern2"
+            case .pattern3: return "pattern3"
             }
         }
     }
@@ -64,6 +66,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             navigationController?.pushViewController(controller, animated: true)
         case .pattern2:
             let controller = Pattern2ViewController.createFromStoryboard()
+            navigationController?.pushViewController(controller, animated: true)
+        case .pattern3:
+            let controller = Pattern3ViewController.createFromStoryboard()
             navigationController?.pushViewController(controller, animated: true)
         }
     }

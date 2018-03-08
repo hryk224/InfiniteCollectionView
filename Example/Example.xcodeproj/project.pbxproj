@@ -18,6 +18,8 @@
 		935BD6E51CE26F0B00E5FDF7 /* Pattern1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935BD6DE1CE26F0B00E5FDF7 /* Pattern1ViewController.swift */; };
 		935BD6E61CE26F0B00E5FDF7 /* Pattern2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 935BD6DF1CE26F0B00E5FDF7 /* Pattern2.storyboard */; };
 		935BD6E71CE26F0B00E5FDF7 /* Pattern2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935BD6E01CE26F0B00E5FDF7 /* Pattern2ViewController.swift */; };
+		A16472372051129D00A6D53D /* Pattern3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16472362051129D00A6D53D /* Pattern3ViewController.swift */; };
+		A164723B205117A800A6D53D /* Pattern3.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A164723A205117A800A6D53D /* Pattern3.storyboard */; };
 		EDA05AD81D92901C00F7C2C5 /* InfiniteCollectionView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA05AD71D92901900F7C2C5 /* InfiniteCollectionView.framework */; };
 		EDA05AD91D92901C00F7C2C5 /* InfiniteCollectionView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EDA05AD71D92901900F7C2C5 /* InfiniteCollectionView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -34,7 +36,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = EDA05AD21D92901900F7C2C5 /* InfiniteCollectionView.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 935BD70C1CE26F8E00E5FDF7;
+			remoteGlobalIDString = OBJ_17;
 			remoteInfo = InfiniteCollectionView;
 		};
 /* End PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		935BD6DE1CE26F0B00E5FDF7 /* Pattern1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pattern1ViewController.swift; sourceTree = "<group>"; };
 		935BD6DF1CE26F0B00E5FDF7 /* Pattern2.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pattern2.storyboard; sourceTree = "<group>"; };
 		935BD6E01CE26F0B00E5FDF7 /* Pattern2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pattern2ViewController.swift; sourceTree = "<group>"; };
+		A16472362051129D00A6D53D /* Pattern3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pattern3ViewController.swift; sourceTree = "<group>"; };
+		A164723A205117A800A6D53D /* Pattern3.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pattern3.storyboard; sourceTree = "<group>"; };
 		EDA05AD21D92901900F7C2C5 /* InfiniteCollectionView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InfiniteCollectionView.xcodeproj; path = ../InfiniteCollectionView.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +108,7 @@
 			children = (
 				ED510E6D1DDD513200470C8B /* Pattern1 */,
 				ED510E6E1DDD513F00470C8B /* Pattern2 */,
+				A16472332051126300A6D53D /* Pattern3 */,
 				935BD6C81CE26EB600E5FDF7 /* AppDelegate.swift */,
 				935BD6CF1CE26EB600E5FDF7 /* Assets.xcassets */,
 				935BD6DA1CE26F0B00E5FDF7 /* ImageCollectionViewCell.swift */,
@@ -114,6 +119,15 @@
 				935BD6DC1CE26F0B00E5FDF7 /* MainViewController.swift */,
 			);
 			path = Example;
+			sourceTree = "<group>";
+		};
+		A16472332051126300A6D53D /* Pattern3 */ = {
+			isa = PBXGroup;
+			children = (
+				A164723A205117A800A6D53D /* Pattern3.storyboard */,
+				A16472362051129D00A6D53D /* Pattern3ViewController.swift */,
+			);
+			name = Pattern3;
 			sourceTree = "<group>";
 		};
 		ED510E6D1DDD513200470C8B /* Pattern1 */ = {
@@ -227,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A164723B205117A800A6D53D /* Pattern3.storyboard in Resources */,
 				935BD6D01CE26EB600E5FDF7 /* Assets.xcassets in Resources */,
 				935BD6E21CE26F0B00E5FDF7 /* ImageCollectionViewCell.xib in Resources */,
 				935BD6D31CE26EB600E5FDF7 /* LaunchScreen.storyboard in Resources */,
@@ -246,6 +261,7 @@
 				935BD6C91CE26EB600E5FDF7 /* AppDelegate.swift in Sources */,
 				935BD6E11CE26F0B00E5FDF7 /* ImageCollectionViewCell.swift in Sources */,
 				935BD6E31CE26F0B00E5FDF7 /* MainViewController.swift in Sources */,
+				A16472372051129D00A6D53D /* Pattern3ViewController.swift in Sources */,
 				935BD6E51CE26F0B00E5FDF7 /* Pattern1ViewController.swift in Sources */,
 				935BD6E71CE26F0B00E5FDF7 /* Pattern2ViewController.swift in Sources */,
 			);
@@ -379,7 +395,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.hryk224.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -393,7 +409,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.hryk224.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

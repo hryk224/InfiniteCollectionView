@@ -1,15 +1,15 @@
 //
-//  Pattern1ViewController.swift
+//  Pattern3ViewController.swift
 //  Example
 //
-//  Created by hiroyuki yoshida on 2016/01/04.
-//  Copyright © 2016年 hiroyuki yoshida. All rights reserved.
+//  Created by iamchiwon on 2018. 3. 8..
+//  Copyright © 2018년 hiroyuki yoshida. All rights reserved.
 //
 
 import UIKit
 import InfiniteCollectionView
 
-final class Pattern1ViewController: UIViewController {
+final class Pattern3ViewController: UIViewController {
     var itemsCount: Int = 5
     @IBOutlet weak var collectionView: InfiniteCollectionView! {
         didSet {
@@ -23,11 +23,6 @@ final class Pattern1ViewController: UIViewController {
             layout.itemSize = UIScreen.main.bounds.size
         }
     }
-    @IBOutlet weak var pageControl: UIPageControl! {
-        didSet {
-            pageControl.numberOfPages = itemsCount
-        }
-    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         NotificationCenter.default.addObserver(self, selector: #selector(Pattern1ViewController.rotate(_:)), name: .UIDeviceOrientationDidChange, object: nil)
@@ -35,9 +30,9 @@ final class Pattern1ViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
     }
-    static func createFromStoryboard() -> Pattern1ViewController {
-        let storyboard = UIStoryboard(name: "Pattern1", bundle: nil)
-        return storyboard.instantiateInitialViewController() as! Pattern1ViewController
+    static func createFromStoryboard() -> Pattern3ViewController {
+        let storyboard = UIStoryboard(name: "Pattern3", bundle: nil)
+        return storyboard.instantiateInitialViewController() as! Pattern3ViewController
     }
     @objc func rotate(_ notification: Notification) {
         layout.itemSize = UIScreen.main.bounds.size
@@ -49,7 +44,7 @@ final class Pattern1ViewController: UIViewController {
 }
 
 // MARK: - InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate
-extension Pattern1ViewController: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
+extension Pattern3ViewController: InfiniteCollectionViewDataSource, InfiniteCollectionViewDelegate {
     func number(ofItems collectionView: UICollectionView) -> Int {
         return itemsCount
     }
@@ -62,6 +57,7 @@ extension Pattern1ViewController: InfiniteCollectionViewDataSource, InfiniteColl
         print("didSelectItemAt: \(usableIndexPath.item)")
     }
     func scrollView(_ scrollView: UIScrollView, pageIndex: Int) {
-        pageControl.currentPage = pageIndex
+        print("scrollView: \(pageIndex)")
     }
 }
+
