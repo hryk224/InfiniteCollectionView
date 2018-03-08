@@ -135,6 +135,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = InfiniteCollectionView;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SWIFT_VERSION = 4.0;
 				TARGET_NAME = InfiniteCollectionView;
 			};
 			name = Debug;
@@ -155,6 +156,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = InfiniteCollectionView;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SWIFT_VERSION = 4.0;
 				TARGET_NAME = InfiniteCollectionView;
 			};
 			name = Release;
