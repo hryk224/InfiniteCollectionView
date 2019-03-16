@@ -34,7 +34,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = EDA05AD21D92901900F7C2C5 /* InfiniteCollectionView.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 935BD70C1CE26F8E00E5FDF7;
+			remoteGlobalIDString = OBJ_17;
 			remoteInfo = InfiniteCollectionView;
 		};
 /* End PBXContainerItemProxy section */
@@ -184,7 +184,7 @@
 				TargetAttributes = {
 					935BD6C41CE26EB600E5FDF7 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -379,7 +379,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.hryk224.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -393,7 +394,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.hryk224.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

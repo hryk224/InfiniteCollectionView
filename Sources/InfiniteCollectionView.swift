@@ -44,12 +44,12 @@ open class InfiniteCollectionView: UICollectionView {
         configure()
     }
     deinit {
-        NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
-    open func rotate(_ notification: Notification) {
+    @objc open func rotate(_ notification: Notification) {
         setContentOffset(CGPoint(x: CGFloat(pageIndex + indexOffset) * itemWidth, y: contentOffset.y), animated: false)
     }
-    open override func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionViewScrollPosition) {
+    open override func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition) {
         guard let indexPath = indexPath else { return }
         // Correct the input IndexPath
         let correctedIndexPath = IndexPath(row: correctedIndex(indexPath.item + indexOffset), section: 0)
@@ -84,7 +84,7 @@ private extension InfiniteCollectionView {
         delegate = self
         dataSource = self
         register(UICollectionViewCell.self, forCellWithReuseIdentifier: defaultIdentifier)
-        NotificationCenter.default.addObserver(self, selector: #selector(InfiniteCollectionView.rotate(_:)), name: .UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(InfiniteCollectionView.rotate(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     func centerIfNeeded(_ scrollView: UIScrollView) {
         let currentOffset = contentOffset

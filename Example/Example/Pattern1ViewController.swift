@@ -30,16 +30,16 @@ final class Pattern1ViewController: UIViewController {
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        NotificationCenter.default.addObserver(self, selector: #selector(Pattern1ViewController.rotate(_:)), name: .UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(Pattern1ViewController.rotate(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     deinit {
-        NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     static func createFromStoryboard() -> Pattern1ViewController {
         let storyboard = UIStoryboard(name: "Pattern1", bundle: nil)
         return storyboard.instantiateInitialViewController() as! Pattern1ViewController
     }
-    func rotate(_ notification: Notification) {
+    @objc func rotate(_ notification: Notification) {
         layout.itemSize = UIScreen.main.bounds.size
         layout.invalidateLayout()
         collectionView.rotate(notification)
