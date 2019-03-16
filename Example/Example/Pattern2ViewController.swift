@@ -59,10 +59,10 @@ final class InfiniteTableViewCell: UITableViewCell {
     static let identifier = "InfiniteTableViewCell"
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        NotificationCenter.default.addObserver(self, selector: #selector(InfiniteTableViewCell.rotate(_:)), name: .UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(InfiniteTableViewCell.rotate(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     deinit {
-        NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     @IBOutlet weak var collectionView: InfiniteCollectionView! {
         didSet {
@@ -81,7 +81,7 @@ final class InfiniteTableViewCell: UITableViewCell {
             pageControl.numberOfPages = 4
         }
     }
-    func rotate(_ notification: Notification) {
+    @objc func rotate(_ notification: Notification) {
         let size = CGSize(width: UIScreen.main.bounds.width, height: 239)
         layout.itemSize = size
         layout.invalidateLayout()
@@ -110,10 +110,10 @@ final class Infinite2TableViewCell: UITableViewCell {
     static let identifier = "Infinite2TableViewCell"
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        NotificationCenter.default.addObserver(self, selector: #selector(Infinite2TableViewCell.rotate(_:)), name: .UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(Infinite2TableViewCell.rotate(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     deinit {
-        NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     @IBOutlet weak var collectionView: InfiniteCollectionView! {
         didSet {
@@ -137,7 +137,7 @@ extension Infinite2TableViewCell: InfiniteCollectionViewDataSource, InfiniteColl
     func infiniteCollectionView(_ collectionView: UICollectionView, didSelectItemAt usableIndexPath: IndexPath) {
         print("didSelectItemAt: \(usableIndexPath.item)")
     }
-    func rotate(_ notification: Notification) {
+    @objc func rotate(_ notification: Notification) {
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.rotate(notification)
         collectionView.layoutIfNeeded()
