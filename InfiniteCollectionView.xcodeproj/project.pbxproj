@@ -89,12 +89,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					OBJ_17 = {
+						LastSwiftMigration = 1020;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "InfiniteCollectionView" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = OBJ_5;
@@ -135,6 +141,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = InfiniteCollectionView;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = InfiniteCollectionView;
 			};
 			name = Debug;
@@ -155,6 +162,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = InfiniteCollectionView;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SWIFT_VERSION = 5.0;
 				TARGET_NAME = InfiniteCollectionView;
 			};
 			name = Release;
