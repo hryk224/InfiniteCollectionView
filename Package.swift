@@ -3,14 +3,16 @@ import PackageDescription
 
 let package = Package(
     name: "InfiniteCollectionView",
+    platforms: [
+        .iOS(.v10),
+    ],
     products: [
         .library(
             name: "InfiniteCollectionView",
             targets: ["InfiniteCollectionView"]
         )
     ],
-    dependencies: [
-        .package(url: "https://github.com/pavelaron/InfiniteCollectionView", from: "1.3.4"),
-    ],
-    targets: []
+    targets: [
+        .target(name: "InfiniteCollectionView", path: "Sources"),
+    ]
 )
