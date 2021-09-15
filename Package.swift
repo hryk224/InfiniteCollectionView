@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "InfiniteCollectionView",
     dependencies: [
-        .package(url: "https://github.com/pavelaron/InfiniteCollectionView", from: "1.3.2"),
+        .package(url: "https://github.com/pavelaron/InfiniteCollectionView", from: "1.3.3"),
     ],
     targets: []
 )
